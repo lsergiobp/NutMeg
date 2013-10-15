@@ -7,17 +7,20 @@ public class SpriteSet : MonoBehaviour {
 	public TextAsset dadosSprite;
 	
 	
-	void Awake() {
+	void Awake() 
+	{
 	
 		sprites = XmlParser.parse( dadosSprite );
 		
 	}
 	
-	public static SpriteSheetInfo getSprite( string nome ) {
+	public static SpriteSheetInfo getSprite( string name ) 
+	{
 		
-		foreach( SpriteSheetInfo sprite in sprites ) {
+		foreach( SpriteSheetInfo sprite in sprites )
+		{
 		
-			if( sprite.NomeSprite == nome )
+			if( sprite.SpriteName == name )
 				return sprite;
 			
 		}

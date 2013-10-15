@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SpriteSystem\SpriteRect.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SpriteSystem\SpriteSet.cs">
     <Files>
-      <File FileName="Assets\SpriteSystem\SpriteRect.cs" Line="37" Column="3" />
-      <File FileName="Assets\SpriteSystem\SpriteSet.cs" Line="25" Column="2" />
-      <File FileName="Assets\SpriteSystem\SpriteSheetInfo.cs" Line="26" Column="43" />
+      <File FileName="Assets\SpriteSystem\SpriteSheetInfo.cs" Line="18" Column="2" />
+      <File FileName="Assets\SpriteSystem\SpriteRect.cs" Line="41" Column="2" />
+      <File FileName="Assets\SpriteSystem\SpriteSet.cs" Line="29" Column="4" />
+      <File FileName="Assets\SpriteSystem\Sprite.cs" Line="44" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

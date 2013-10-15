@@ -3,13 +3,23 @@ using System.Collections.Generic;
 
 /**
  * 
- * Classe que ira conter as infromaçoes das sprites
+ * Classe que ira conter as informacoes das sprites
  * 
 **/
 public class SpriteSheetInfo {
 	
 	private SortedDictionary<string, SpriteRect> _spriteInfo;
 	private string _spriteName;
+
+	public SortedDictionary<string, SpriteRect> SpriteInfo
+	{
+		get { return _spriteInfo; }	
+	}
+	
+	public string SpriteName
+	{
+		get { return _spriteName; }	
+	}
 	
 	public SpriteSheetInfo( SortedDictionary<string, SpriteRect> SpriteInfo, string SpriteName ) 
 	{
@@ -29,6 +39,13 @@ public class SpriteSheetInfo {
 		string[] names = new string[ _spriteInfo.Count ];
 		_spriteInfo.Keys.CopyTo( names, 0 );
 		return names;
+	}
+	
+	//Retorna uma textura
+	public Texture2D GetTexture() 
+	{
+		Texture2D texture = ( Texture2D ) Resources.Load( _spriteName );	
+		return texture;
 	}
 
 }
