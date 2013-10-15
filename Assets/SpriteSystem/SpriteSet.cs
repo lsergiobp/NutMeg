@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using System.Collections.Generic;
 
 public class SpriteSet : MonoBehaviour {
@@ -23,4 +23,4 @@ public class SpriteSet : MonoBehaviour {
 		}
 		return null;
 	}
-}
+}*/
