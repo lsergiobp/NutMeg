@@ -2,14 +2,14 @@
 
 <sprites>
 	<sprite name="Player">
-		<rect name="parado">0,1,16,16</rect>
-		<rect name="andar">16,0,16,16</rect>
-		<rect name="pular">32,0,16,16</rect>
-		<rect name="morrer">48,1,16,16</rect>
-		<rect name="paradoInverso">16,1,-16,16</rect>
-		<rect name="andarInverso">32,0,-16,16</rect>
-		<rect name="pularInverso">48,0,-16,16</rect>
-		<rect name="morrerInverso">64,1,-16,16</rect>
+		<rect name="stopRight">0,1,16,16</rect>
+		<rect name="walkRight">16,0,16,16</rect>
+		<rect name="jumpRight">32,0,16,16</rect>
+		<rect name="dieRight">48,1,16,16</rect>
+		<rect name="stopLeft">16,1,-16,16</rect>
+		<rect name="walkLeft">32,0,-16,16</rect>
+		<rect name="jumpLeft">48,0,-16,16</rect>
+		<rect name="dieLeft">64,1,-16,16</rect>
 	</sprite>
 	<sprite name="Mapa">
 		<rect name="terra">50,42,30,50</rect>
