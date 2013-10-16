@@ -1,12 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SpriteSystem\SpriteSet.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Controller\PlayerController.cs">
     <Files>
-      <File FileName="Assets\SpriteSystem\XMLParser.cs" Line="12" Column="2" />
-      <File FileName="Assets\SpriteSystem\SpriteSheetInfo.cs" Line="24" Column="26" />
-      <File FileName="Assets\SpriteSystem\SpriteRect.cs" Line="41" Column="2" />
-      <File FileName="Assets\SpriteSystem\SpriteSet.cs" Line="24" Column="3" />
-      <File FileName="Assets\SpriteSystem\Sprite.cs" Line="44" Column="3" />
+      <File FileName="Assets\Controller\PlayerController.cs" Line="19" Column="1" />
+      <File FileName="Assets\SpriteSystem\XMLParser.cs" Line="48" Column="17" />
+      <File FileName="Assets\SpriteSystem\SpriteSheetInfo.cs" Line="45" Column="26" />
+      <File FileName="Assets\SpriteSystem\SpriteRect.cs" Line="10" Column="25" />
+      <File FileName="Assets\SpriteSystem\SpriteSet.cs" Line="27" Column="1" />
+      <File FileName="Assets\SpriteSystem\Sprite.cs" Line="142" Column="71" />
+      <File FileName="Assets\Resources\SpriteData.xml" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

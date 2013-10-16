@@ -46,11 +46,13 @@
   <ItemGroup>
      <Compile Include="Assets\Controller\GameEventController.cs" />
      <Compile Include="Assets\Controller\GenericController.cs" />
+     <Compile Include="Assets\Controller\PlayerController.cs" />
      <Compile Include="Assets\SpriteSystem\Sprite.cs" />
      <Compile Include="Assets\SpriteSystem\SpriteRect.cs" />
      <Compile Include="Assets\SpriteSystem\SpriteSet.cs" />
      <Compile Include="Assets\SpriteSystem\SpriteSheetInfo.cs" />
      <Compile Include="Assets\SpriteSystem\XMLParser.cs" />
+     <None Include="Assets\Resources\SpriteData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

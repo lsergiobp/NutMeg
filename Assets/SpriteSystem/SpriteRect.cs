@@ -7,7 +7,7 @@ using System.Collections;
  * 
 **/
 
-public class SpriteRect : MonoBehaviour {
+public class SpriteRect  {
 
 	private int _x, _y, _w, _h;
 	

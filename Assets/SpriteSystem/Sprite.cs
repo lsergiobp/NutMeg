@@ -55,15 +55,15 @@ public class Sprite : MonoBehaviour
 			switch( playMode )
 			{
 				case PlayMode.Loop:
-					Loop();
+					StartCoroutine("Loop");
 					break;
 				
 				case PlayMode.Once:
-					Once ();
+					StartCoroutine("Once");
 					break;
 				
 				case PlayMode.PingPong:
-					PingPong();
+					StartCoroutine("PingPong");
 					break;
 			}
 		} else {
@@ -93,13 +93,15 @@ public class Sprite : MonoBehaviour
 	
 	private IEnumerator Once()
 	{
+		print("teste");
 		string[] spriteNames = _spriteInfo.GetSpriteNames();
 		renderer.material.mainTexture = _spriteTexture;
 		_isPlaying = true;
-		
+		print("aeeee");
 		for( int i = 0; i < spriteNames.Length; i++)
 		{
 			SpriteRect rect = _spriteInfo.GetSprite( spriteNames[i] );
+			print(rect);
 			Vector2 imageDimensions = new Vector2( _spriteTexture.width, _spriteTexture.height );
 			renderer.material.mainTextureOffset = rect.GetOffset( imageDimensions );
 			renderer.material.mainTextureScale = rect.GetScale( imageDimensions );
@@ -130,5 +132,13 @@ public class Sprite : MonoBehaviour
 	{
 		_isPlaying = false;
 		StopAllCoroutines();	
+	}
+	
+	public void SetFrame( string name )
+	{
+		SpriteRect rect = _spriteInfo.GetSprite( name );
+		Vector2 imgDimensions = new Vector2( _spriteTexture.width, _spriteTexture.height );
+		renderer.material.mainTextureOffset = rect.GetOffset( imgDimensions );
+		renderer.material.mainTextureScale = rect.GetScale( imgDimensions );
 	}
 }

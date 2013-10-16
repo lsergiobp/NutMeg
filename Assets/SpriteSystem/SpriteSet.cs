@@ -9,22 +9,22 @@ using System.Collections.Generic;
 public class SpriteSet : MonoBehaviour {
 	
 	private static List<SpriteSheetInfo> sprites;
-	public TextAsset dadosSprite;
+	public TextAsset spriteData;
 	
 	
 	void Awake() 
 	{
 	
-		sprites = XMLParser.Parse( dadosSprite );
+		sprites = XMLParser.Parse( spriteData );
 		
 	}
 	
-	public static SpriteSheetInfo getSprite( string name ) 
+	public static SpriteSheetInfo GetSprite( string name ) 
 	{
 		
 		foreach( SpriteSheetInfo sprite in sprites )
 		{
-		
+
 			if( sprite.SpriteName == name )
 				return sprite;
 			
