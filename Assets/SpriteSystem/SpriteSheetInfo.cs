@@ -8,10 +8,10 @@ using System.Collections.Generic;
 **/
 public class SpriteSheetInfo {
 	
-	private SortedDictionary<string, SpriteRect> _spriteInfo;
+	private Dictionary<string, SpriteRect> _spriteInfo;
 	private string _spriteName;
 
-	public SortedDictionary<string, SpriteRect> SpriteInfo
+	public Dictionary<string, SpriteRect> SpriteInfo
 	{
 		get { return _spriteInfo; }	
 	}
@@ -21,7 +21,7 @@ public class SpriteSheetInfo {
 		get { return _spriteName; }	
 	}
 	
-	public SpriteSheetInfo( SortedDictionary<string, SpriteRect> SpriteInfo, string SpriteName ) 
+	public SpriteSheetInfo( Dictionary<string, SpriteRect> SpriteInfo, string SpriteName ) 
 	{
 		_spriteInfo = SpriteInfo;
 		_spriteName = SpriteName;

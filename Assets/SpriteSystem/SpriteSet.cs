@@ -1,6 +1,11 @@
-/*using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
+/**
+ * 
+ * Classe Responsavel por carregar as sprites
+ * 
+**/ 
 public class SpriteSet : MonoBehaviour {
 	
 	private static List<SpriteSheetInfo> sprites;
@@ -10,7 +15,7 @@ public class SpriteSet : MonoBehaviour {
 	void Awake() 
 	{
 	
-		sprites = XmlParser.parse( dadosSprite );
+		sprites = XMLParser.Parse( dadosSprite );
 		
 	}
 	
@@ -26,4 +31,4 @@ public class SpriteSet : MonoBehaviour {
 		}
 		return null;
 	}
-}*/
+}
