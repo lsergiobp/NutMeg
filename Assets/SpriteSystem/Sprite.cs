@@ -34,7 +34,9 @@ public class Sprite : MonoBehaviour
 	{
 		Loop,
 		Once,
-		PingPong
+		PingPong,
+		WalkRight,
+		WalkLeft
 	}
 	
 	public void Create( SpriteSheetInfo SpriteInfo ) 
@@ -64,6 +66,14 @@ public class Sprite : MonoBehaviour
 				
 				case PlayMode.PingPong:
 					StartCoroutine("PingPong");
+					break;
+				
+				case PlayMode.WalkRight:
+					StartCoroutine("WalkRight");
+					break;
+				
+				case PlayMode.WalkLeft:
+					StartCoroutine("WalkLeft");
 					break;
 			}
 		} else {
@@ -124,6 +134,50 @@ public class Sprite : MonoBehaviour
 				renderer.material.mainTextureOffset = rect.GetOffset( imageDimensions );
 				renderer.material.mainTextureScale = rect.GetScale( imageDimensions );
 				yield return new WaitForSeconds( _interval );
+			}
+		}
+	}
+	
+	private IEnumerator WalkRight()
+	{
+		string[] spriteNames = _spriteInfo.GetSpriteNames();
+		renderer.material.mainTexture = _spriteTexture;
+		_isPlaying = true;
+		
+		while( true )
+		{
+			for( int i = 0; i < spriteNames.Length; i++)
+			{
+				if( spriteNames[i].Equals("walkRight") || spriteNames[i].Equals("stopRight") )
+				{
+				SpriteRect rect = _spriteInfo.GetSprite( spriteNames[i] );
+				Vector2 imageDimensions = new Vector2( _spriteTexture.width, _spriteTexture.height );
+				renderer.material.mainTextureOffset = rect.GetOffset( imageDimensions );
+				renderer.material.mainTextureScale = rect.GetScale( imageDimensions );
+				yield return new WaitForSeconds( _interval );
+				}
+			}
+		}
+	}
+	
+	private IEnumerator WalkLeft()
+	{
+		string[] spriteNames = _spriteInfo.GetSpriteNames();
+		renderer.material.mainTexture = _spriteTexture;
+		_isPlaying = true;
+		
+		while( true )
+		{
+			for( int i = 0; i < spriteNames.Length; i++)
+			{
+				if( spriteNames[i].Equals("walkLeft") || spriteNames[i].Equals("stopLeft") )
+				{
+				SpriteRect rect = _spriteInfo.GetSprite( spriteNames[i] );
+				Vector2 imageDimensions = new Vector2( _spriteTexture.width, _spriteTexture.height );
+				renderer.material.mainTextureOffset = rect.GetOffset( imageDimensions );
+				renderer.material.mainTextureScale = rect.GetScale( imageDimensions );
+				yield return new WaitForSeconds( _interval );
+				}
 			}
 		}
 	}

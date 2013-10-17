@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
 	private float maxVelocityGravity = 20f;	//força maxima adquirida pela gravidade
 	private float jumpSpeed = 15f; //Velocidade do pulo
 	private float moveSpeed = 8f; //Velocidade de movimento
+	private float intervalBetweenFrames = 0.2f;
+	private bool turnRight;
 		
 	private Vector3 moveVector {get; set;} //Vetor de movimento
 	private float verticalVelocity {get; set;} //Velocidade vertical
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	void Awake () 
 	{
 		charController = ( CharacterController ) gameObject.GetComponent("CharacterController");
+		turnRight = true;
 	}
 	
 	void Start () 
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour {
 		waitForMovement(); //Espera algum comando de movimento
 		waitForJump(); //Espera algum comando de pulo
 		handleMovement(); //Realiza o movimento
+		handleSprites(); //Gerencia a troca de sprites
 		lockZAxis(); //Nao deixa o player se movimentar no eixo Z
 	}
 	
@@ -42,6 +46,34 @@ public class PlayerController : MonoBehaviour {
 		if( Input.GetAxis("Horizontal") > deadZone || Input.GetAxis("Horizontal") < -deadZone ){
 		moveVector += new Vector3( Input.GetAxis("Horizontal"),0,0 );
 		}
+	}
+	
+	void handleSprites()
+	{
+		if( Input.GetKeyDown( KeyCode.RightArrow ) ) 
+		{
+			sprite.Play( Sprite.PlayMode.WalkRight, intervalBetweenFrames );
+			turnRight = true;
+		}
+		
+		if( Input.GetKeyUp( KeyCode.RightArrow ) ) 
+		{
+			sprite.Stop();
+			sprite.SetFrame( "stopRight" );
+		}
+		
+		if( Input.GetKeyDown( KeyCode.LeftArrow ) ) 
+		{
+			turnRight = false;
+			sprite.Play( Sprite.PlayMode.WalkLeft, intervalBetweenFrames );
+		}
+		
+		if( Input.GetKeyUp( KeyCode.LeftArrow ) ) 
+		{
+			sprite.Stop();
+			sprite.SetFrame( "stopLeft" );
+		}
+		
 	}
 	
 	void waitForJump(){
@@ -94,6 +126,15 @@ public class PlayerController : MonoBehaviour {
 		if(charController.isGrounded)
 		{
 			verticalVelocity = jumpSpeed;
+			
+			if( turnRight ) 
+			{
+				sprite.SetFrame( "jumpRight" );
+			}
+			else if ( !turnRight )
+			{
+				sprite.SetFrame( "jumpLeft" );
+			}
 		}
 	}
 	
