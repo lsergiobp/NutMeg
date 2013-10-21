@@ -7,6 +7,6 @@ public class GenericController : MonoBehaviour {
 	
 	void Start () {
 		Transform g = ( Transform ) Instantiate( genericPrefab );
-		g.localPosition = transform.localPosition;
+		transform.localPosition = g.localPosition;
 	}
 }

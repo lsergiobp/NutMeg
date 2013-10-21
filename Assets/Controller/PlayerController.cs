@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 	private float gravityForce = 21f;	 //força da gravidade
 	private float maxVelocityGravity = 20f;	//força maxima adquirida pela gravidade
 	private float jumpSpeed = 15f; //Velocidade do pulo
-	private float moveSpeed = 8f; //Velocidade de movimento
+	private float moveSpeed = 10.5f; //Velocidade de movimento
 	private float intervalBetweenFrames = 0.2f;
 	private bool turnRight;
 		
@@ -62,10 +62,18 @@ public class PlayerController : MonoBehaviour {
 			sprite.SetFrame( "stopRight" );
 		}
 		
-		if( Input.GetKeyDown( KeyCode.LeftArrow ) ) 
+		while( Input.GetKeyDown( KeyCode.LeftArrow ) ) 
 		{
 			turnRight = false;
 			sprite.Play( Sprite.PlayMode.WalkLeft, intervalBetweenFrames );
+			
+			if ( Input.GetKeyDown( KeyCode.RightArrow ) )
+			{
+				sprite.Stop();
+				print ("teste");
+				sprite.SetFrame( "stopRight" );
+				charController.Move( new Vector3(0,0,0) );
+			}
 		}
 		
 		if( Input.GetKeyUp( KeyCode.LeftArrow ) ) 
