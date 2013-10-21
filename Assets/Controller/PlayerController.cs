@@ -5,8 +5,8 @@ public class PlayerController : MonoBehaviour {
 
 	private float gravityForce = 21f;	 //força da gravidade
 	private float maxVelocityGravity = 20f;	//força maxima adquirida pela gravidade
-	private float jumpSpeed = 15f; //Velocidade do pulo
-	private float moveSpeed = 10.5f; //Velocidade de movimento
+	private float jumpSpeed = 20f; //Velocidade do pulo
+	private float moveSpeed = 15f; //Velocidade de movimento
 	private float intervalBetweenFrames = 0.2f;
 	private bool turnRight;
 		
@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 	
 	private CharacterController charController; //Controlador
 	private Sprite sprite; //Sprite
+	
+	public static Vector3 playerPosition;
 	
 	// Inicializando o controlador
 	void Awake () 
@@ -26,11 +28,13 @@ public class PlayerController : MonoBehaviour {
 	void Start () 
 	{
 		initSprite();
+		playerPosition = transform.localPosition;
 	}
 	
 	// Metodo que e chamado a cada frame
 	void Update () 
 	{
+		playerPosition = transform.localPosition;
 		waitForMovement(); //Espera algum comando de movimento
 		waitForJump(); //Espera algum comando de pulo
 		handleMovement(); //Realiza o movimento
@@ -62,18 +66,10 @@ public class PlayerController : MonoBehaviour {
 			sprite.SetFrame( "stopRight" );
 		}
 		
-		while( Input.GetKeyDown( KeyCode.LeftArrow ) ) 
+		if( Input.GetKeyDown( KeyCode.LeftArrow ) ) 
 		{
 			turnRight = false;
 			sprite.Play( Sprite.PlayMode.WalkLeft, intervalBetweenFrames );
-			
-			if ( Input.GetKeyDown( KeyCode.RightArrow ) )
-			{
-				sprite.Stop();
-				print ("teste");
-				sprite.SetFrame( "stopRight" );
-				charController.Move( new Vector3(0,0,0) );
-			}
 		}
 		
 		if( Input.GetKeyUp( KeyCode.LeftArrow ) ) 
