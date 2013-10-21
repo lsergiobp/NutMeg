@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	private float gravityForce = 21f;	 //força da gravidade
+	private float gravityForce = 25f;	 //força da gravidade
 	private float maxVelocityGravity = 20f;	//força maxima adquirida pela gravidade
 	private float jumpSpeed = 20f; //Velocidade do pulo
 	private float moveSpeed = 15f; //Velocidade de movimento
@@ -15,8 +15,12 @@ public class PlayerController : MonoBehaviour {
 	
 	private CharacterController charController; //Controlador
 	private Sprite sprite; //Sprite
+	private int StarsCollected = 0; //Quantidade de estrelas ja coletadas
 	
-	public static Vector3 playerPosition;
+	public int initialLimit; //Limite inicial da camera
+	public int finalLimit; //Limite final da camera
+	public static Vector3 playerPosition; //Posiçao do player
+	public static int totalStars = 0; //Numero de estrelas na fase
 	
 	// Inicializando o controlador
 	void Awake () 
@@ -34,12 +38,13 @@ public class PlayerController : MonoBehaviour {
 	// Metodo que e chamado a cada frame
 	void Update () 
 	{
-		playerPosition = transform.localPosition;
+		playerPosition = transform.localPosition; //Captura a posiçao atual do player
 		waitForMovement(); //Espera algum comando de movimento
 		waitForJump(); //Espera algum comando de pulo
 		handleMovement(); //Realiza o movimento
 		handleSprites(); //Gerencia a troca de sprites
 		lockZAxis(); //Nao deixa o player se movimentar no eixo Z
+		waitForGameOver(); //Verifica se o player perdeu
 	}
 	
 	void waitForMovement()
@@ -48,7 +53,11 @@ public class PlayerController : MonoBehaviour {
 		verticalVelocity = moveVector.y;
 		moveVector = Vector3.zero;
 		if( Input.GetAxis("Horizontal") > deadZone || Input.GetAxis("Horizontal") < -deadZone ){
-		moveVector += new Vector3( Input.GetAxis("Horizontal"),0,0 );
+			if ( ( playerPosition.x >= initialLimit && Input.GetKey( KeyCode.LeftArrow ) )
+				|| ( playerPosition.x <= finalLimit && Input.GetKey( KeyCode.RightArrow ) ) )
+			{
+				moveVector += new Vector3( Input.GetAxis("Horizontal"),0,0 );
+			}
 		}
 	}
 	
@@ -155,6 +164,24 @@ public class PlayerController : MonoBehaviour {
 		Vector3 pos = transform.position;
      	pos.z = 0;
      	transform.position = pos;	
+	}
+	
+	void waitForGameOver()
+	{
+		if( playerPosition.y < -35 ) 
+		{
+			Application.LoadLevel("nutmeg");
+		}
+	}
+	
+	void OnTriggerEnter( Collider collider )
+	{
+
+		if( collider.gameObject.name.Equals( "starPrefab(Clone)" ) )
+		{
+			Destroy( collider.gameObject );
+			StarsCollected++;
+		}
 	}
 
 }
