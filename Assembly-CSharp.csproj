@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Controller\CameraController.cs" />
+     <Compile Include="Assets\Controller\GUIController.cs" />
      <Compile Include="Assets\Controller\GameEventController.cs" />
      <Compile Include="Assets\Controller\GenericController.cs" />
      <Compile Include="Assets\Controller\LandController.cs" />

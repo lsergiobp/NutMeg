@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 	private float gravityForce = 25f;	 //força da gravidade
 	private float maxVelocityGravity = 20f;	//força maxima adquirida pela gravidade
 	private float jumpSpeed = 20f; //Velocidade do pulo
-	private float moveSpeed = 15f; //Velocidade de movimento
+	private float moveSpeed = 20f; //Velocidade de movimento
 	private float intervalBetweenFrames = 0.2f;
 	private bool turnRight;
 		
@@ -15,14 +15,14 @@ public class PlayerController : MonoBehaviour {
 	
 	private CharacterController charController; //Controlador
 	private Sprite sprite; //Sprite
-	private int StarsCollected = 0; //Quantidade de estrelas ja coletadas
+	private int starsCollected = 0; //Quantidade de estrelas ja coletadas
 	
 	public float initialLimit; //Limite inicial da camera
 	public float finalLimit; //Limite final da camera
 	public static Vector3 playerPosition; //Posiçao do player
 	public static int totalStars = 0; //Numero de estrelas na fase
 	
-	// Inicializando o controlador
+	// Metodo chamado antes de iniciar o jogo
 	void Awake () 
 	{
 		charController = ( CharacterController ) gameObject.GetComponent("CharacterController");
@@ -30,9 +30,11 @@ public class PlayerController : MonoBehaviour {
 		playerPosition = transform.localPosition;
 	}
 	
+	// Metodo chamado ao iniciar o jogo
 	void Start () 
 	{
-		initSprite();
+		initSprite(); // Inicializa as configuraçoes de sprite
+		handleGameEvents(); //Inicializa os eventos do jogo
 	}
 	
 	// Metodo que e chamado a cada frame
@@ -45,6 +47,13 @@ public class PlayerController : MonoBehaviour {
 		handleSprites(); //Gerencia a troca de sprites
 		lockZAxis(); //Nao deixa o player se movimentar no eixo Z
 		waitForGameOver(); //Verifica se o player perdeu
+		waitForWin(); //Verifica se o player ja pegou todas as estrelas
+	}
+	
+	void handleGameEvents()
+	{
+		GameEventManager.GameStart += GameStart; 
+		GameEventManager.GameOver += GameOver; 
 	}
 	
 	void waitForMovement()
@@ -170,8 +179,27 @@ public class PlayerController : MonoBehaviour {
 	{
 		if( playerPosition.y < -35 ) 
 		{
-			Application.LoadLevel("nutmeg");
+			GameEventManager.TriggerGameOver();
 		}
+	}
+	
+	void waitForWin()
+	{
+		if( starsCollected == totalStars )
+		{
+			GameEventManager.TriggerGameStart();	
+		}
+	}
+	
+	void GameStart()
+	{
+		print("VITORIA");
+		Application.LoadLevel("nutmeg");
+	}
+	
+	void GameOver()
+	{
+		Application.LoadLevel("nutmeg");	
 	}
 	
 	void OnTriggerEnter( Collider collider )
@@ -180,7 +208,7 @@ public class PlayerController : MonoBehaviour {
 		if( collider.gameObject.name.Equals( "starPrefab(Clone)" ) )
 		{
 			Destroy( collider.gameObject );
-			StarsCollected++;
+			starsCollected++;
 		}
 	}
 
