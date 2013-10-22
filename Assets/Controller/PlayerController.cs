@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour {
 	private Sprite sprite; //Sprite
 	private int StarsCollected = 0; //Quantidade de estrelas ja coletadas
 	
-	public int initialLimit; //Limite inicial da camera
-	public int finalLimit; //Limite final da camera
+	public float initialLimit; //Limite inicial da camera
+	public float finalLimit; //Limite final da camera
 	public static Vector3 playerPosition; //Posiçao do player
 	public static int totalStars = 0; //Numero de estrelas na fase
 	
@@ -27,12 +27,12 @@ public class PlayerController : MonoBehaviour {
 	{
 		charController = ( CharacterController ) gameObject.GetComponent("CharacterController");
 		turnRight = true;
+		playerPosition = transform.localPosition;
 	}
 	
 	void Start () 
 	{
 		initSprite();
-		playerPosition = transform.localPosition;
 	}
 	
 	// Metodo que e chamado a cada frame

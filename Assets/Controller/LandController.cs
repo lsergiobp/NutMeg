@@ -15,8 +15,8 @@ public class LandController : MonoBehaviour {
 	{
 		nextPosition = landPrefab.localPosition;
 		
-		instantiateLand( 20 );
-		instantiateWater( 2 );
+		instantiateLand( 25 );
+		instantiateWater( 3 );
 		instantiateLand( 10 );
 		
 	}
