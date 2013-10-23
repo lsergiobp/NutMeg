@@ -4,16 +4,21 @@ using System.Collections;
 public class GUIController : MonoBehaviour {
 	
 	public GUIText starsText;
-	
+		
 	void Start () 
 	{
 		handleGameEvents();
-		this.starsText.enabled = false;
+		starsText.enabled = true;
 	}
 
 	void Update ()
 	{
+		updatePoints();
+	}
 	
+	void updatePoints()
+	{
+		starsText.text = PlayerController.starsCollected + "/" + PlayerController.totalStars;
 	}
 	
 	void handleGameEvents()
@@ -24,12 +29,12 @@ public class GUIController : MonoBehaviour {
 	
 	void GameStart()
 	{
-		this.starsText.enabled = true;
+		starsText.enabled = true;
 	}
 	
 	void GameOver()
 	{
-		this.starsText.enabled = false;
+		starsText.enabled = false;
 	}	
 	
 	void OnGUI()

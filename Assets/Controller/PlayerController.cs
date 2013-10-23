@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour {
 	
 	private CharacterController charController; //Controlador
 	private Sprite sprite; //Sprite
-	private int starsCollected = 0; //Quantidade de estrelas ja coletadas
+	public static int starsCollected = 0; //Quantidade de estrelas ja coletadas
+	public static int totalStars = 0; //Numero de estrelas na fase
 	
 	public float initialLimit; //Limite inicial da camera
 	public float finalLimit; //Limite final da camera
 	public static Vector3 playerPosition; //Posiçao do player
-	public static int totalStars = 0; //Numero de estrelas na fase
 	
 	// Metodo chamado antes de iniciar o jogo
 	void Awake () 
