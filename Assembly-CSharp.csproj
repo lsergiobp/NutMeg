@@ -49,6 +49,7 @@
      <Compile Include="Assets\Controller\GameEventController.cs" />
      <Compile Include="Assets\Controller\GenericController.cs" />
      <Compile Include="Assets\Controller\LandController.cs" />
+     <Compile Include="Assets\Controller\MobileElevatorController.cs" />
      <Compile Include="Assets\Controller\PlayerController.cs" />
      <Compile Include="Assets\SpriteSystem\Sprite.cs" />
      <Compile Include="Assets\SpriteSystem\SpriteRect.cs" />

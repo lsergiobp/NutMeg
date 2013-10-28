@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour {
 		
 	private Vector3 moveVector {get; set;} //Vetor de movimento
 	private float verticalVelocity {get; set;} //Velocidade vertical
-	private bool isPlaying;
 	
 	private CharacterController charController; //Controlador
 	private Sprite sprite; //Sprite
@@ -42,7 +41,6 @@ public class PlayerController : MonoBehaviour {
 		{
 			renderer.enabled = false;
 			charController.enabled = false;
-			isPlaying = false;
 		}
 	}
 	
@@ -205,8 +203,10 @@ public class PlayerController : MonoBehaviour {
 	
 	void waitForWin()
 	{
-		if( starsCollected == totalStars && isPlaying )
+		if( starsCollected == totalStars && GameEventController.playNumber > 0 )
 		{
+			starsCollected = 0;
+			totalStars = 0;
 			Application.LoadLevel("nutmeg2");	
 		}
 	}
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour {
 		
 		renderer.enabled = true;
 		charController.enabled = true;
-		isPlaying = true;
+		
 	}
 	
 	
