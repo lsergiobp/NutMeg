@@ -4,11 +4,19 @@ using System.Collections;
 public class GUIController : MonoBehaviour {
 	
 	public GUIText starsText;
+	public GUITexture starTexture;
+	public GUITexture nutMegTexture;
+	public GUIText nutMegText;
+	public GUIText gameOverText;
 		
 	void Start () 
 	{
 		handleGameEvents();
-		starsText.enabled = true;
+		starsText.enabled = false;
+		starTexture.enabled = false;
+		nutMegText.enabled = true;
+		nutMegTexture.enabled = true;
+		gameOverText.enabled = false;
 	}
 
 	void Update ()
@@ -30,11 +38,19 @@ public class GUIController : MonoBehaviour {
 	void GameStart()
 	{
 		starsText.enabled = true;
+		starTexture.enabled = true;
+		nutMegText.enabled = false;
+		nutMegTexture.enabled = false;
+		gameOverText.enabled = false;
 	}
 	
 	void GameOver()
 	{
 		starsText.enabled = false;
+		starTexture.enabled = false;
+		nutMegText.enabled = true;
+		nutMegTexture.enabled = true;
+		gameOverText.enabled = true;
 	}	
 	
 	void OnGUI()

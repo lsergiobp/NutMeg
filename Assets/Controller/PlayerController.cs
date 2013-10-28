@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 		
 	private Vector3 moveVector {get; set;} //Vetor de movimento
 	private float verticalVelocity {get; set;} //Velocidade vertical
+	private bool isPlaying;
 	
 	private CharacterController charController; //Controlador
 	private Sprite sprite; //Sprite
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 		charController = ( CharacterController ) gameObject.GetComponent("CharacterController");
 		turnRight = true;
 		playerPosition = transform.localPosition;
+		charController.enabled = false;
 	}
 	
 	// Metodo chamado ao iniciar o jogo
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour {
 	{
 		initSprite(); // Inicializa as configuraçoes de sprite
 		handleGameEvents(); //Inicializa os eventos do jogo
+		renderer.enabled = false;
+		isPlaying = false;
 	}
 	
 	// Metodo que e chamado a cada frame
@@ -43,17 +47,27 @@ public class PlayerController : MonoBehaviour {
 		playerPosition = transform.localPosition; //Captura a posiçao atual do player
 		waitForMovement(); //Espera algum comando de movimento
 		waitForJump(); //Espera algum comando de pulo
-		handleMovement(); //Realiza o movimento
+		
+		if( charController.enabled )
+			handleMovement(); //Realiza o movimento
+		
 		handleSprites(); //Gerencia a troca de sprites
 		lockZAxis(); //Nao deixa o player se movimentar no eixo Z
 		waitForGameOver(); //Verifica se o player perdeu
 		waitForWin(); //Verifica se o player ja pegou todas as estrelas
+		waitForGameStart(); //Espera apertar a tecla enter para começar o jogo
 	}
 	
 	void handleGameEvents()
 	{
 		GameEventManager.GameStart += GameStart; 
 		GameEventManager.GameOver += GameOver; 
+	}
+	
+	void waitForGameStart()
+	{
+		if( Input.GetKeyDown( KeyCode.Return ) || Input.GetKeyDown( KeyCode.KeypadEnter ) )
+			GameEventManager.TriggerGameStart();
 	}
 	
 	void waitForMovement()
@@ -185,21 +199,27 @@ public class PlayerController : MonoBehaviour {
 	
 	void waitForWin()
 	{
-		if( starsCollected == totalStars )
+		if( starsCollected == totalStars && isPlaying )
 		{
-			GameEventManager.TriggerGameStart();	
+			Application.LoadLevel("nutmeg");	
 		}
 	}
 	
 	void GameStart()
 	{
-		print("VITORIA");
-		Application.LoadLevel("nutmeg");
+		
+		renderer.enabled = true;
+		charController.enabled = true;
+		isPlaying = true;
 	}
 	
 	void GameOver()
 	{
-		Application.LoadLevel("nutmeg");	
+		
+		renderer.enabled = false;
+		charController.enabled = false;
+		isPlaying = false;
+
 	}
 	
 	void OnTriggerEnter( Collider collider )

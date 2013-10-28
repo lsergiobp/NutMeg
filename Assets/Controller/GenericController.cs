@@ -6,6 +6,20 @@ public class GenericController : MonoBehaviour {
 	public Transform genericPrefab;
 	
 	void Start () {
+		
+		handleGameEvents();
+		
+	}
+	
+	void handleGameEvents()
+	{
+		GameEventManager.GameStart += GameStart; 
+		GameEventManager.GameOver += GameOver; 
+	}
+	
+	void GameStart() 
+	{
+		enabled = true;
 		Transform g = ( Transform ) Instantiate( genericPrefab );
 		g.localPosition = transform.localPosition;
 		
@@ -14,4 +28,10 @@ public class GenericController : MonoBehaviour {
 			PlayerController.totalStars++;
 		}
 	}
+	
+	void GameOver()
+	{
+		enabled = false;	
+	}
+	
 }

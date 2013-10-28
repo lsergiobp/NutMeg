@@ -14,11 +14,27 @@ public class LandController : MonoBehaviour {
 	void Start () 
 	{
 		nextPosition = landPrefab.localPosition;
+		handleGameEvents();
 		
+	}
+	
+	void handleGameEvents()
+	{
+		GameEventManager.GameStart += GameStart; 
+		GameEventManager.GameOver += GameOver; 
+	}
+	
+	void GameStart() 
+	{
+		enabled = true;
 		instantiateLand( 25 );
 		instantiateWater( 3 );
-		instantiateLand( 10 );
-		
+		instantiateLand( 10 );	
+	}
+	
+	void GameOver()
+	{
+		enabled = false;	
 	}
 	
 	void instantiateLand( int numObjects )
