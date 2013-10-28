@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour {
 	
 	void waitForWin()
 	{
-		if( starsCollected == totalStars && GameEventController.playNumber > 0 )
+		if( (starsCollected == totalStars && GameEventController.playNumber > 0) || Input.GetKeyDown(KeyCode.Escape) )
 		{
 			starsCollected = 0;
 			totalStars = 0;
@@ -228,6 +228,7 @@ public class PlayerController : MonoBehaviour {
 			Destroy( collider.gameObject );
 			starsCollected++;
 		}
+		
 	}
 
 }
