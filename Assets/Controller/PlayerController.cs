@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 		charController = ( CharacterController ) gameObject.GetComponent("CharacterController");
 		turnRight = true;
 		playerPosition = transform.localPosition;
-		charController.enabled = false;
+		
 	}
 	
 	// Metodo chamado ao iniciar o jogo
@@ -37,8 +37,13 @@ public class PlayerController : MonoBehaviour {
 	{
 		initSprite(); // Inicializa as configuraçoes de sprite
 		handleGameEvents(); //Inicializa os eventos do jogo
-		renderer.enabled = false;
-		isPlaying = false;
+		
+		if( GameEventController.playNumber == 0 )
+		{
+			renderer.enabled = false;
+			charController.enabled = false;
+			isPlaying = false;
+		}
 	}
 	
 	// Metodo que e chamado a cada frame
@@ -60,14 +65,15 @@ public class PlayerController : MonoBehaviour {
 	
 	void handleGameEvents()
 	{
-		GameEventManager.GameStart += GameStart; 
-		GameEventManager.GameOver += GameOver; 
+		GameEventController.GameStart += GameStart; 
+	 
 	}
 	
 	void waitForGameStart()
 	{
-		if( Input.GetKeyDown( KeyCode.Return ) || Input.GetKeyDown( KeyCode.KeypadEnter ) )
-			GameEventManager.TriggerGameStart();
+		if( Application.loadedLevelName.Equals( "nutmeg" ) && GameEventController.playNumber == 0 &&
+			( Input.GetKeyDown( KeyCode.Return ) || Input.GetKeyDown( KeyCode.KeypadEnter ) ) )
+			GameEventController.TriggerGameStart();
 	}
 	
 	void waitForMovement()
@@ -193,7 +199,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		if( playerPosition.y < -35 ) 
 		{
-			GameEventManager.TriggerGameOver();
+			GameEventController.TriggerGameOver();
 		}
 	}
 	
@@ -201,7 +207,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		if( starsCollected == totalStars && isPlaying )
 		{
-			Application.LoadLevel("nutmeg");	
+			Application.LoadLevel("nutmeg2");	
 		}
 	}
 	
@@ -213,14 +219,6 @@ public class PlayerController : MonoBehaviour {
 		isPlaying = true;
 	}
 	
-	void GameOver()
-	{
-		
-		renderer.enabled = false;
-		charController.enabled = false;
-		isPlaying = false;
-
-	}
 	
 	void OnTriggerEnter( Collider collider )
 	{

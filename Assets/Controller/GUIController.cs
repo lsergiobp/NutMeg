@@ -7,16 +7,11 @@ public class GUIController : MonoBehaviour {
 	public GUITexture starTexture;
 	public GUITexture nutMegTexture;
 	public GUIText nutMegText;
-	public GUIText gameOverText;
-		
+			
 	void Start () 
 	{
 		handleGameEvents();
-		starsText.enabled = false;
-		starTexture.enabled = false;
-		nutMegText.enabled = true;
-		nutMegTexture.enabled = true;
-		gameOverText.enabled = false;
+	
 	}
 
 	void Update ()
@@ -31,30 +26,39 @@ public class GUIController : MonoBehaviour {
 	
 	void handleGameEvents()
 	{
-		GameEventManager.GameStart += GameStart; 
-		GameEventManager.GameOver += GameOver; 
+		GameEventController.GameStart += GameStart; 
+		GameEventController.GameOver += GameOver; 
 	}
 	
 	void GameStart()
 	{
-		starsText.enabled = true;
-		starTexture.enabled = true;
-		nutMegText.enabled = false;
-		nutMegTexture.enabled = false;
-		gameOverText.enabled = false;
+		
 	}
 	
-	void GameOver()
+	void GameOver()	
 	{
-		starsText.enabled = false;
-		starTexture.enabled = false;
-		nutMegText.enabled = true;
-		nutMegTexture.enabled = true;
-		gameOverText.enabled = true;
+		Application.LoadLevel( Application.loadedLevel );
+		GameEventController.playNumber++;
+		PlayerController.starsCollected = 0;
+		PlayerController.totalStars = 0;
 	}	
 	
 	void OnGUI()
 	{
+		if ( GameEventController.playNumber > 0 )
+		{
+			starsText.enabled = true;
+			starTexture.enabled = true;
+			nutMegText.enabled = false;
+			nutMegTexture.enabled = false;
+		}
 		
+		else
+		{
+			starsText.enabled = false;
+			starTexture.enabled = false;
+			nutMegText.enabled = true;
+			nutMegTexture.enabled = true;
+		}
 	}
 }

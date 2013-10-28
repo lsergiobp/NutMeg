@@ -16,25 +16,40 @@ public class LandController : MonoBehaviour {
 		nextPosition = landPrefab.localPosition;
 		handleGameEvents();
 		
+		if( GameEventController.playNumber > 0 )
+			instantiateObjects();	
+
+		
 	}
 	
 	void handleGameEvents()
 	{
-		GameEventManager.GameStart += GameStart; 
-		GameEventManager.GameOver += GameOver; 
+		GameEventController.GameStart += GameStart; 
+		
+	}
+	
+	void instantiateObjects()
+	{
+		if( Application.loadedLevelName.Equals( "nutmeg" ) )
+		{
+			instantiateLand( 25 );
+			instantiateWater( 3 );
+			instantiateLand( 10 );		
+		}
+		
+		if( Application.loadedLevelName.Equals( "nutmeg2" ) )
+		{
+			instantiateLand( 10 );
+			instantiateWater( 5 );
+			instantiateLand( 15 );	
+			instantiateWater( 2 );
+			instantiateLand( 5 );	
+		}
 	}
 	
 	void GameStart() 
 	{
-		enabled = true;
-		instantiateLand( 25 );
-		instantiateWater( 3 );
-		instantiateLand( 10 );	
-	}
-	
-	void GameOver()
-	{
-		enabled = false;	
+		instantiateObjects();	
 	}
 	
 	void instantiateLand( int numObjects )
