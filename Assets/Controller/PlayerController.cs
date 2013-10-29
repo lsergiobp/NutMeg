@@ -229,6 +229,12 @@ public class PlayerController : MonoBehaviour {
 			starsCollected++;
 		}
 		
+		if( collider.gameObject.name.Equals( "enemyPrefab" ) )
+		{
+			print ("gameover");
+			GameEventController.TriggerGameOver();
+		}
+		
 	}
 
 }
