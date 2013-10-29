@@ -43,7 +43,7 @@ public class Sprite : MonoBehaviour
 	{
 		if( IsPlaying ) 
 			Stop();	
-		
+	
 		_spriteInfo = SpriteInfo;
 		_spriteTexture = _spriteInfo.GetTexture();
 	}

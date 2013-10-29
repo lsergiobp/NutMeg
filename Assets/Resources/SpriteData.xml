@@ -11,7 +11,10 @@
 		<rect name="jumpLeft">48,0,-16,16</rect>
 		<rect name="dieLeft">64,1,-16,16</rect>
 	</sprite>
-	<sprite name="Mapa">
-		<rect name="terra">50,42,30,50</rect>
+	<sprite name="Enemy">
+		<rect name="stopRight">0,1,16,17</rect>
+		<rect name="walkRight">16,0,16,17</rect>
+		<rect name="stopLeft">16,1,-16,17</rect>
+		<rect name="walkLeft">32,0,-16,17</rect>
 	</sprite>
 </sprites>

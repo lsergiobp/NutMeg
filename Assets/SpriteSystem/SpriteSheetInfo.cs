@@ -44,7 +44,7 @@ public class SpriteSheetInfo {
 	//Retorna uma textura
 	public Texture2D GetTexture() 
 	{
-		Texture2D texture = ( Texture2D ) Resources.Load( _spriteName );	
+		Texture2D texture = ( Texture2D ) Resources.Load( "Images/" + _spriteName );	
 		return texture;
 	}
 
