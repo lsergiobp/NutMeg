@@ -4,7 +4,8 @@ using System.Collections;
 public class EnemyController : MonoBehaviour {
 	
 	private Sprite sprite;
-	public bool right;
+	private bool right;
+	public bool initialMovRight;
 	private Vector3 initialPosition;
 	private Vector3 enemyPosition;
 	private float limit;
@@ -17,8 +18,13 @@ public class EnemyController : MonoBehaviour {
 		handleGameEvents();
 		
 		initialPosition = transform.localPosition;
-		limit = initialPosition.y + 35.0f;
-		right = true;
+		initialPosition.x = initialPosition.x - 1.0f;
+		
+		if( initialMovRight )
+			limit = initialPosition.x + 20.0f;
+		else
+			limit = initialPosition.x - 20.0f;
+		
 		isPlaying = false;
 		
 		if( GameEventController.playNumber == 0 )
@@ -29,46 +35,97 @@ public class EnemyController : MonoBehaviour {
 	
 	void Update () {
 	
+		if( initialMovRight )
+			movRight();
+		else
+			movLeft();
+		
+	}
+	
+	void movRight()
+	{
 		if ( transform.localPosition.x >= limit )
-		{
-			right = false;
-			sprite.Stop();
-			isPlaying = false;
-		}
-		
-		if ( transform.localPosition.x <= initialPosition.x )
-		{
-			right = true;
-			sprite.Stop();
-			isPlaying = false;
-		}
-		
-		if( right ) 
-		{	
-			if( !isPlaying )
 			{
-				sprite.Play( Sprite.PlayMode.WalkRight, intervalBetweenFrames );
-				isPlaying = true;
+				right = false;
+				sprite.Stop();
+				isPlaying = false;
 			}
 			
-			enemyPosition = transform.localPosition;
-			enemyPosition.x = enemyPosition.x + enemyVelocity;
-			transform.localPosition = enemyPosition;
-		}
-		
-		else if( !right ) 
-		{
-			if( !isPlaying )
+			if ( transform.localPosition.x <= initialPosition.x )
 			{
-				sprite.Play( Sprite.PlayMode.WalkLeft, intervalBetweenFrames );
-				isPlaying = true;
+				right = true;
+				sprite.Stop();
+				isPlaying = false;
 			}
 			
-			enemyPosition = transform.localPosition;
-			enemyPosition.x = enemyPosition.x - enemyVelocity;
-			transform.localPosition = enemyPosition;
-		}
-		
+			if( right ) 
+			{	
+				if( !isPlaying )
+				{
+					sprite.Play( Sprite.PlayMode.WalkRight, intervalBetweenFrames );
+					isPlaying = true;
+				}
+				
+				enemyPosition = transform.localPosition;
+				enemyPosition.x = enemyPosition.x + enemyVelocity;
+				transform.localPosition = enemyPosition;
+			}
+			
+			else if( !right ) 
+			{
+				if( !isPlaying )
+				{
+					sprite.Play( Sprite.PlayMode.WalkLeft, intervalBetweenFrames );
+					isPlaying = true;
+				}
+				
+				enemyPosition = transform.localPosition;
+				enemyPosition.x = enemyPosition.x - enemyVelocity;
+				transform.localPosition = enemyPosition;
+			}
+	}
+	
+	void movLeft()
+	{
+		if ( transform.localPosition.x <= limit )
+			{
+				right = true;
+				sprite.Stop();
+				isPlaying = false;
+			}
+			
+			if ( transform.localPosition.x >= initialPosition.x )
+			{
+				right = false;
+				sprite.Stop();
+				isPlaying = false;
+			}
+			
+			if( right ) 
+			{	
+				if( !isPlaying )
+				{
+					sprite.Play( Sprite.PlayMode.WalkRight, intervalBetweenFrames );
+					isPlaying = true;
+				}
+				
+				enemyPosition = transform.localPosition;
+				enemyPosition.x = enemyPosition.x + enemyVelocity;
+				transform.localPosition = enemyPosition;
+			}
+			
+			else if( !right ) 
+			{
+				if( !isPlaying )
+				{
+					sprite.Play( Sprite.PlayMode.WalkLeft, intervalBetweenFrames );
+					isPlaying = true;
+				}
+				
+				enemyPosition = transform.localPosition;
+				enemyPosition.x = enemyPosition.x - enemyVelocity;
+				transform.localPosition = enemyPosition;
+			}
 	}
 	
 	//Metodo que inicializa com a sprite parado
