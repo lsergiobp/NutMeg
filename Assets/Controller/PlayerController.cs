@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour {
 	void applyGravity()
 	{
 		//Nao deixa passar da velocidade maxima vertical
-		if(moveVector.y > -maxVelocityGravity)
+		if( moveVector.y > -maxVelocityGravity )
 		{
 			moveVector = new Vector3( moveVector.x, ( moveVector.y - gravityForce * Time.deltaTime ) ,moveVector.z );
 		}
