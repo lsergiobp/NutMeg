@@ -3,10 +3,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	private float gravityForce = 25f;	 //força da gravidade
+	private float gravityForce = 50f;	 //força da gravidade
 	private float maxVelocityGravity = 20f;	//força maxima adquirida pela gravidade
-	private float jumpSpeed = 20f; //Velocidade do pulo
-	private float moveSpeed = 20f; //Velocidade de movimento
+	private float jumpSpeed = 30f; //Velocidade do pulo
+	private float moveSpeed = 30f; //Velocidade de movimento
 	private float intervalBetweenFrames = 0.2f;
 	private bool turnRight;
 		
@@ -148,11 +148,9 @@ public class PlayerController : MonoBehaviour {
 	
 	void applyGravity()
 	{
-		//Nao deixa passar da velocidade maxima vertical
-		if( moveVector.y > -maxVelocityGravity )
-		{
-			moveVector = new Vector3( moveVector.x, ( moveVector.y - gravityForce * Time.deltaTime ) ,moveVector.z );
-		}
+		//Aplica a gravidade
+		moveVector = new Vector3( moveVector.x, ( moveVector.y - gravityForce * Time.deltaTime ) ,moveVector.z );
+		
 		//Se tocar no chao, volta pra velocidade vertical de começo
 		if( charController.isGrounded && moveVector.y < -1 )
 		{
