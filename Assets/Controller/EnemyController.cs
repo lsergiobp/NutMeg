@@ -58,7 +58,7 @@ public class EnemyController : MonoBehaviour {
 				isPlaying = false;
 			}
 			
-			if( right ) 
+			if( right && !GameEventController.paused ) 
 			{	
 				if( !isPlaying )
 				{
@@ -71,7 +71,7 @@ public class EnemyController : MonoBehaviour {
 				transform.localPosition = enemyPosition;
 			}
 			
-			else if( !right ) 
+			else if( !right && !GameEventController.paused ) 
 			{
 				if( !isPlaying )
 				{
@@ -101,7 +101,7 @@ public class EnemyController : MonoBehaviour {
 				isPlaying = false;
 			}
 			
-			if( right ) 
+			if( right && !GameEventController.paused ) 
 			{	
 				if( !isPlaying )
 				{
@@ -114,7 +114,7 @@ public class EnemyController : MonoBehaviour {
 				transform.localPosition = enemyPosition;
 			}
 			
-			else if( !right ) 
+			else if( !right && !GameEventController.paused ) 
 			{
 				if( !isPlaying )
 				{
@@ -139,11 +139,19 @@ public class EnemyController : MonoBehaviour {
 	void handleGameEvents()
 	{
 		GameEventController.GameStart += GameStart; 
-		
+		GameEventController.GamePause += GamePause;
 	}
 	
 	void GameStart() 
 	{
 		renderer.enabled = true;
+	}
+	
+	void GamePause()
+	{
+		if ( !GameEventController.paused )
+			Time.timeScale = 0;
+		else
+			Time.timeScale = 1;
 	}
 }

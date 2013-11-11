@@ -30,17 +30,17 @@ public class MobileElevatorController : MonoBehaviour {
 		if ( m != null && m.localPosition.y <= initialPosition.y )
 			up = true;
 		
-		if( m != null && up ) 
+		if( m != null && up && !GameEventController.paused ) 
 		{
 			mobilePosition = m.localPosition;
 			mobilePosition.y = mobilePosition.y + 0.2f;
 			m.localPosition = mobilePosition;
 		}
 		
-		else if( m != null && !up ) 
+		else if( m != null && !up && !GameEventController.paused ) 
 		{
 			mobilePosition = m.localPosition;
-			mobilePosition.y = mobilePosition.y - 0.2f;
+			mobilePosition.y = mobilePosition.y - 0.1f;
 			m.localPosition = mobilePosition;
 		}
 		
@@ -56,7 +56,16 @@ public class MobileElevatorController : MonoBehaviour {
 	void handleGameEvents()
 	{
 		GameEventController.GameStart += GameStart; 
+		GameEventController.GamePause += GamePause;
 		
+	}
+
+	void GamePause()
+	{
+		if ( !GameEventController.paused )
+			Time.timeScale = 0;
+		else
+			Time.timeScale = 1;
 	}
 	
 	void GameStart() 

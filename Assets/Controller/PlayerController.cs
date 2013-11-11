@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	private float gravityForce = 50f;	 //força da gravidade
-	private float maxVelocityGravity = 20f;	//força maxima adquirida pela gravidade
 	private float jumpSpeed = 30f; //Velocidade do pulo
 	private float moveSpeed = 30f; //Velocidade de movimento
 	private float intervalBetweenFrames = 0.2f;
@@ -59,12 +58,28 @@ public class PlayerController : MonoBehaviour {
 		waitForGameOver(); //Verifica se o player perdeu
 		waitForWin(); //Verifica se o player ja pegou todas as estrelas
 		waitForGameStart(); //Espera apertar a tecla enter para começar o jogo
+		waitForGamePause();
 	}
 	
 	void handleGameEvents()
 	{
-		GameEventController.GameStart += GameStart; 
+		GameEventController.GameStart += GameStart;
+		GameEventController.GamePause += GamePause;
 	 
+	}
+	
+	void waitForGamePause()
+	{
+		if(	Input.GetKeyDown(KeyCode.Escape) )
+			GameEventController.TriggerGamePause();
+	}
+	
+	void GamePause()
+	{
+		if ( !GameEventController.paused )
+			Time.timeScale = 0;
+		else
+			Time.timeScale = 1;
 	}
 	
 	void waitForGameStart()
@@ -78,8 +93,9 @@ public class PlayerController : MonoBehaviour {
 	{
 		float deadZone = 0.1f;
 		verticalVelocity = moveVector.y;
-		moveVector = Vector3.zero;
-		if( Input.GetAxis("Horizontal") > deadZone || Input.GetAxis("Horizontal") < -deadZone ){
+		moveVector = new Vector3( 0f,0.001f,0 );
+		if( Input.GetAxis("Horizontal") > deadZone || Input.GetAxis("Horizontal") < -deadZone )
+		{
 			if ( ( playerPosition.x >= initialLimit && Input.GetKey( KeyCode.LeftArrow ) )
 				|| ( playerPosition.x <= finalLimit && Input.GetKey( KeyCode.RightArrow ) ) )
 			{
@@ -90,25 +106,25 @@ public class PlayerController : MonoBehaviour {
 	
 	void handleSprites()
 	{
-		if( Input.GetKeyDown( KeyCode.RightArrow ) ) 
+		if( Input.GetKeyDown( KeyCode.RightArrow ) && !GameEventController.paused ) 
 		{
 			sprite.Play( Sprite.PlayMode.WalkRight, intervalBetweenFrames );
 			turnRight = true;
 		}
 		
-		if( Input.GetKeyUp( KeyCode.RightArrow ) ) 
+		if( Input.GetKeyUp( KeyCode.RightArrow ) && !GameEventController.paused ) 
 		{
 			sprite.Stop();
 			sprite.SetFrame( "stopRight" );
 		}
 		
-		if( Input.GetKeyDown( KeyCode.LeftArrow ) ) 
+		if( Input.GetKeyDown( KeyCode.LeftArrow ) && !GameEventController.paused ) 
 		{
 			turnRight = false;
 			sprite.Play( Sprite.PlayMode.WalkLeft, intervalBetweenFrames );
 		}
 		
-		if( Input.GetKeyUp( KeyCode.LeftArrow ) ) 
+		if( Input.GetKeyUp( KeyCode.LeftArrow ) && !GameEventController.paused ) 
 		{
 			sprite.Stop();
 			sprite.SetFrame( "stopLeft" );
@@ -165,11 +181,11 @@ public class PlayerController : MonoBehaviour {
 		{
 			verticalVelocity = jumpSpeed;
 			
-			if( turnRight ) 
+			if( turnRight && !GameEventController.paused ) 
 			{
 				sprite.SetFrame( "jumpRight" );
 			}
-			else if ( !turnRight )
+			else if ( !turnRight && !GameEventController.paused )
 			{
 				sprite.SetFrame( "jumpLeft" );
 			}
@@ -194,18 +210,21 @@ public class PlayerController : MonoBehaviour {
 	void waitForGameOver()
 	{
 		if( playerPosition.y < -35 ) 
-		{
+		{ 
 			GameEventController.TriggerGameOver();
 		}
 	}
 	
 	void waitForWin()
 	{
-		if( (starsCollected == totalStars && GameEventController.playNumber > 0) || Input.GetKeyDown(KeyCode.Escape) )
+		if( (starsCollected == totalStars && GameEventController.playNumber > 0) || Input.GetKeyDown(KeyCode.Delete) )
 		{
 			starsCollected = 0;
 			totalStars = 0;
-			Application.LoadLevel("nutmeg2");	
+			if( Application.loadedLevelName.Equals( "nutmeg" ) )
+				Application.LoadLevel( "nutmeg2" );	
+			else if( Application.loadedLevelName.Equals( "nutmeg2" ) )
+				Application.LoadLevel( "nutmeg3" );	
 		}
 	}
 	
@@ -220,19 +239,24 @@ public class PlayerController : MonoBehaviour {
 	
 	void OnTriggerEnter( Collider collider )
 	{
-
+		//se colidir com uma estrela
 		if( collider.gameObject.name.Equals( "starPrefab(Clone)" ) )
 		{
 			Destroy( collider.gameObject );
 			starsCollected++;
 		}
-		
+		//se colidir com um inimigo chama o evento de game over
 		if( collider.gameObject.name.Equals( "enemyPrefab" ) )
 		{
-			print ("gameover");
 			GameEventController.TriggerGameOver();
 		}
 		
+	}
+	
+	//Nao funciona
+	void OnCollisionEnter()
+	{
+		print("teste");
 	}
 
 }

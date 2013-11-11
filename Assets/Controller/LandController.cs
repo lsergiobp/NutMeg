@@ -45,6 +45,15 @@ public class LandController : MonoBehaviour {
 			instantiateWater( 2 );
 			instantiateLand( 5 );	
 		}
+		
+		if( Application.loadedLevelName.Equals( "nutmeg3" ) )
+		{
+			instantiateLand( 20 );
+			instantiateWater( 10 );
+			instantiateLand( 16 );	
+			instantiateWater( 4 );
+			instantiateLand( 15 );	
+		}
 	}
 	
 	void GameStart() 
