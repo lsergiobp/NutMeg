@@ -7,6 +7,8 @@ public class GUIController : MonoBehaviour {
 	public GUITexture starTexture;
 	public GUITexture nutMegTexture;
 	public GUIText nutMegText;
+	public GUIText winText;
+	private bool gameWin;
 			
 	void Start () 
 	{
@@ -26,13 +28,19 @@ public class GUIController : MonoBehaviour {
 	
 	void handleGameEvents()
 	{
-		GameEventController.GameStart += GameStart; 
+		GameEventController.GameWin += GameWin; 
 		GameEventController.GameOver += GameOver; 
+		GameEventController.GameStart += GameStart; 
+	}
+	
+	void GameWin()
+	{
+		gameWin = true;
 	}
 	
 	void GameStart()
 	{
-		
+		gameWin = false;	
 	}
 	
 	void GameOver()	
@@ -41,7 +49,7 @@ public class GUIController : MonoBehaviour {
 		GameEventController.playNumber++;
 		PlayerController.starsCollected = 0;
 		PlayerController.totalStars = 0;
-	}	
+	}
 	
 	void OnGUI()
 	{
@@ -51,14 +59,28 @@ public class GUIController : MonoBehaviour {
 			starTexture.enabled = true;
 			nutMegText.enabled = false;
 			nutMegTexture.enabled = false;
+			winText.enabled = false;
 		}
 		
-		else
+		else if ( GameEventController.playNumber == 0 && !gameWin )
 		{
 			starsText.enabled = false;
 			starTexture.enabled = false;
 			nutMegText.enabled = true;
 			nutMegTexture.enabled = true;
+			winText.enabled = false;
+		}
+		
+		else if( gameWin )
+		{
+			starsText.enabled = false;
+			starTexture.enabled = false;
+			nutMegText.enabled = false;
+			nutMegTexture.enabled = true;
+			winText.enabled = true;
+			
+			if ( Input.GetKey( KeyCode.Return ) || Input.GetKey( KeyCode.KeypadEnter ) )
+				Application.Quit();
 		}
 	}
 }

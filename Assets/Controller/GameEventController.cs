@@ -2,22 +2,28 @@ public static class GameEventController {
 
 	public delegate void GameEvent();
 
-	public static event GameEvent GameStart, GameOver, GamePause;
+	public static event GameEvent GameStart, GameOver, GamePause, GameWin;
 	
 	public static int playNumber = 0;
 	
 	public static bool paused = false;
 
 	public static void TriggerGameStart(){
-		if(GameStart != null){
+		if( GameStart != null ){
 			GameStart();
 			playNumber++;
 		}
 	}
 
 	public static void TriggerGameOver(){
-		if(GameOver != null){
+		if( GameOver != null ){
 			GameOver();
+		}
+	}
+	
+	public static void TriggerGameWin(){
+		if( GameWin != null ){
+			GameWin();
 		}
 	}
 	

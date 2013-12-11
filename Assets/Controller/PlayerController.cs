@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 	// Metodo que e chamado a cada frame
 	void Update () 
 	{
+	
 		playerPosition = transform.localPosition; //Captura a posiçao atual do player
 		waitForMovement(); //Espera algum comando de movimento
 		waitForJump(); //Espera algum comando de pulo
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		GameEventController.GameStart += GameStart;
 		GameEventController.GamePause += GamePause;
+		GameEventController.GameWin += GameWin;
 	 
 	}
 	
@@ -225,6 +227,8 @@ public class PlayerController : MonoBehaviour {
 				Application.LoadLevel( "nutmeg2" );	
 			else if( Application.loadedLevelName.Equals( "nutmeg2" ) )
 				Application.LoadLevel( "nutmeg3" );	
+			else if( Application.loadedLevelName.Equals( "nutmeg3" ) )
+				GameEventController.TriggerGameWin();
 		}
 	}
 	
@@ -236,6 +240,27 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 	
+	void GameWin()
+	{
+		GameEventController.playNumber = 0;
+		GameEventController.TriggerGamePause();
+		Destroy( this );
+	}
+	
+	void OnControllerColliderHit( ControllerColliderHit hit )
+	{
+		
+		if( hit.gameObject.name.Equals( "MobileRight" ) )
+		{
+			charController.Move( new Vector3( 12.0f, 0, 0 ) * Time.deltaTime );
+		}
+	    else if( hit.gameObject.name.Equals( "MobileLeft" ) )
+		{
+			charController.Move( new Vector3( -12.0f, 0, 0 ) * Time.deltaTime );
+		}
+			
+	}
+			
 	
 	void OnTriggerEnter( Collider collider )
 	{
@@ -253,10 +278,5 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 	
-	//Nao funciona
-	void OnCollisionEnter()
-	{
-		print("teste");
-	}
-
+	
 }

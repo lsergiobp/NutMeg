@@ -61,6 +61,7 @@ public class LandController : MonoBehaviour {
 		instantiateObjects();	
 	}
 	
+	
 	void instantiateLand( int numObjects )
 	{
 		for (int i = 0; i < numObjects; i++) 
