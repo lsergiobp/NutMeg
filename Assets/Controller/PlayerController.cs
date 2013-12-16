@@ -5,12 +5,13 @@ public class PlayerController : MonoBehaviour {
 
 	private float gravityForce = 50f;	 //força da gravidade
 	private float jumpSpeed = 30f; //Velocidade do pulo
-	private float moveSpeed = 30f; //Velocidade de movimento
+	private float moveSpeed = 35f; //Velocidade de movimento
 	private float intervalBetweenFrames = 0.2f;
 	private bool turnRight;
 		
 	private Vector3 moveVector {get; set;} //Vetor de movimento
 	private float verticalVelocity {get; set;} //Velocidade vertical
+	private bool isGameOver; //Controle de se o jogador passou de fase ou perdeu
 	
 	private CharacterController charController; //Controlador
 	private Sprite sprite; //Sprite
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour {
 	
 	void handleMovement()
 	{
+		
 		moveVector = transform.TransformDirection( moveVector );
 		
 		//Normaliza o vetor para tamanho 1
@@ -214,12 +216,14 @@ public class PlayerController : MonoBehaviour {
 		if( playerPosition.y < -35 ) 
 		{ 
 			GameEventController.TriggerGameOver();
+			this.isGameOver = true;
 		}
 	}
 	
 	void waitForWin()
 	{
-		if( (starsCollected == totalStars && GameEventController.playNumber > 0) || Input.GetKeyDown(KeyCode.Delete) )
+		if( ( starsCollected == totalStars && GameEventController.playNumber > 0 && !this.isGameOver )
+			|| Input.GetKeyDown( KeyCode.Delete ) )
 		{
 			starsCollected = 0;
 			totalStars = 0;
@@ -237,6 +241,7 @@ public class PlayerController : MonoBehaviour {
 		
 		renderer.enabled = true;
 		charController.enabled = true;
+		Time.timeScale = 1;
 		
 	}
 	
@@ -269,11 +274,13 @@ public class PlayerController : MonoBehaviour {
 		{
 			Destroy( collider.gameObject );
 			starsCollected++;
+			this.isGameOver = false;
 		}
 		//se colidir com um inimigo chama o evento de game over
 		if( collider.gameObject.name.Equals( "enemyPrefab" ) )
 		{
 			GameEventController.TriggerGameOver();
+			this.isGameOver = true;
 		}
 		
 	}

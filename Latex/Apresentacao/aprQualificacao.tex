@@ -1,0 +1,428 @@
+% Luiz Sergio de Britto Pinto (lsergiobp@gmail.com)
+\documentclass[10pt]{beamer}
+
+
+\newtheorem{proposition}{Proposi\c{c}\~{a}o}  %%
+
+%% comente a linha acima e descomente a debaixo para gerar
+%% lâminas para serem impressas
+% \documentclass[handout]{beamer}
+
+% Outras classes: [notes], [notes=only], [trans], [handout],
+% [red], [compress], [draft], [class=article]
+
+\mode<presentation>{
+  %% Temas
+  \usepackage{beamerthemeshadow}
+  \usepackage[portuguese,algoruled,longend,linesnumbered]{algorithm2e}
+  \usepackage{graphicx}
+  \usepackage{graphics}
+%  \usepackage{epsfig}
+%   \usepackage{beamerthemebars}
+%   \usepackage[headheight=12pt,footheight=12pt]{beamerthemeboxes}
+%   \usepackage{beamerthemeclassic}
+%   \usepackage{beamerthemelined}
+%   \usepackage{beamerthemeplain}
+%   \usepackage[width=12pt,dark,tab]{beamerthemesidebar}
+%   \usepackage{beamerthemesplit}
+%   \usepackage{beamerthemetree}
+%   \usepackage[bar]{beamerthemetree}
+  
+  \usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+	\beamertemplatetransparentcovereddynamic
+  \beamertemplateballitem
+  %\beamertemplatefootpagenumber
+  \setbeamerfont{fonteMenor}{size=\scriptsize}
+  \setbeamerfont{fonteMenor1}{size=\tiny}
+  \setbeamerfont{fonteNormal}{size=\normal}
+  
+}
+
+\mode<handout>{
+  % tema simples para ser impresso
+  \usepackage[bar]{beamerthemetree}
+  % Colocando um fundo cinza quando for gerar transparências para serem impressas
+  % mais de uma transparência por página
+  \beamertemplatesolidbackgroundcolor{black!5}
+}
+
+\usepackage{amsmath,amssymb}
+\usepackage[brazil]{varioref}
+\usepackage[english,brazil]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{colortbl}
+\usepackage{color}
+\usepackage[brazil]{babel}
+\usepackage[backend=biber]{biblatex}
+
+
+
+\definecolor{Blue}{rgb}{0,0,255}
+\definecolor{Red}{rgb}{255,0,0}
+% um outro tipo de fonte
+% \usepackage{pslatex}
+
+
+
+\beamertemplatetransparentcovereddynamic
+
+\title{}
+\author{Luiz Sergio de Britto Pinto\\ TCC}
+\institute{Universidade do Estado do Amazonas - UEA}
+
+\title[Desenvolvimento de jogos eletrônicos com Unity}
+\author[Pinto, Luiz Sergio B.]{%
+  Luiz Sergio de Britto Pinto\inst{1}\\Jucimar Maia da Silva Junior\inst{1}}
+
+  \institute[UEA]{
+  \inst{1}%
+  	 Engenharia da Computação\\
+	 Universidade do Estado do Amazonas - UEA}
+
+% Se comentar a linha abaixo, irá aparecer a data quando foi compilada a apresentação  
+\date{Dezembro - 2013}
+
+%\pgfdeclareimage[height=0.4cm]{das}{figs/ufpe.jpg}
+\pgfdeclareimage[height=1cm]{uea}{figuras/logo_uea.png}
+
+% pode-se colocar o LOGO assim
+%\logo{\pgfuseimage{ufpe}}
+
+% ou...
+\logo{\vbox{\hbox to 1cm{\hfil\pgfuseimage{uea}}}}
+
+\begin{document}
+\frame{\titlepage}
+\frame
+{
+	\frametitle{Sumário}
+	\begin{itemize}
+		\item Introdução
+		\begin{itemize}
+			\item Descrição do Problema
+			\item Objetivo Geral
+			\item Objetivos Específicos
+		\end{itemize}
+		\item Metodologia
+		\begin{itemize}
+			\item Sprites
+			\item Movimentação
+			\item Câmera
+			\item Cenário
+			\item Inimigos
+			\item Som de fundo
+			\item Pontuação
+			\item Pause
+			\item Tela Inicial e Final
+			\item Exportação
+		\end{itemize}
+		\item Conclusões
+	\end{itemize}
+}
+
+% inicio da Introdução
+
+\section{Introdução}
+\subsection{Descrição do Problema}
+\frame
+{
+	\frametitle{Descrição do Problema}
+	\begin{itemize}
+		\item O desenvolvimento de jogos eletrônicos é uma área que cada vez cresce mais.
+		\pause
+		\item Segundo o jornal da globo, o Brasil é o país onde o mercado de jogos eletrônicos mais cresceu no mundo em 2012.
+		\pause
+		\item Com essa ampliação do mercado de entretenimento virtual, cada vez mais, demanda-se profissionais nesta área que exige conhecimento técnico específico e diferente daquele encontrado em processos de engenharia bem difundidos.
+	\end{itemize}
+}
+\frame
+{
+\frametitle{Descrição do Problema}
+\begin{itemize}
+		\item O processo de desenvolvimento de jogos eletrônicos costuma ser bastante complicado. Além do conhecimento específico necessário, é preciso avaliar as tecnologias disponíveis, requisitos a serem satisfeitos e um conhecimento na área de design para manipular sprites e animações.
+		\pause
+		\item Existem vários frameworks disponíveis para desenvolvimento em várias plataformas diferentes
+		\pause
+		\begin{itemize}
+			\item Blender Game Engine
+			\item Cry Engine
+			\item UDK
+			\item Construct
+			\item Unity
+		\end{itemize}
+	\end{itemize}
+}
+\frame
+{
+\frametitle{Escolha do Projeto}
+\begin{itemize}
+	\item  Unity uma ótima ferramenta para criacão de jogos 3D, porém foi escolhido o desenvolvimento de um jogo plataforma 2D para o trabalho.
+	\pause
+	\item Algumas ferramentas como o Game Maker e o Construct são mais fáceis para iniciantes criarem um jogo 2D, porém não tem tanto poder quanto outras engines maiores.
+	\pause
+	\item Existem várias engines poderosas para a criacão de jogos, porém, algumas são bastante difíceis de serem utilizadas para quem nunca usou, como o caso da Blender Game Engine.
+	\pause
+	\item UDK (Unreal Development Kit) e a Cry Engine, além de serem engines muito pesadas, possuem um custo muito alto para funcionalidades medianas e avançadas
+\end{itemize}
+}
+\frame
+{
+\frametitle{Vantagens do Unity}
+\begin{itemize}
+	\item  Mesmo utilizando a versão gratuita do Unity, o mesmo oferece muitos recursos
+	para o desenvolvimento, criacão de cenários, etc.
+	\pause
+	\item Permite o desenvolvimento em várias linguagens como Javascript, C\# e Boo. Para
+	o projeto foi escolhido a linguagem C\# por ter mais documentacão e ser uma
+	linguagem mais familiar.
+	\pause
+	\item Permite a exportacão do jogo para várias plataformas como Windows, Mac, Android,
+	Iphone, Windows Phone, Xbox, Wii. Para algumas delas, é necessária uma
+	versão específica e paga do Unity.
+	\pause
+	\item É uma ferramenta que está crescendo muito no conceito dos desenvolvedores de
+	jogos e essa seria uma ótima oportunidade de aprender a usar esse framework.
+\end{itemize}
+}
+
+\subsection{Objetivo Geral}
+\frame
+{
+	\frametitle{Objetivo Geral}
+	\begin{itemize}
+		\item O trabalho tem por objetivo portar um jogo eletrônico de plataforma 2D feito em flash(NutMeg) para Unity e verificar as vantagens e desvantagens do framework. 
+		\pause
+		\item O jogador irá controlar um pássaro que poderá virar e andar a direita, à esquerda e pular sobre as plataformas do jogo. Haverá plataformas fixas e móveis.
+		\pause
+		\item Terá distribuido pelo cenário, estrelas que deverão ser coletadas pelo jogador. Se o número de estrelas coletadas for igual ao número total de estrelas na fase, o jogador vence e passa para a próxima fase, caso tenha.
+		\pause
+		\item  Se for a última fase e o jogador coletar todas as estrelas, é mostrada uma tela de vitória. Caso o jogador caia na água ou, seja tocado pelo inimigo que será um gato, o jogador perde e a fase é reiniciada.
+		\end{itemize}
+}
+
+\subsection{Objetivos Específicos}
+\frame
+{
+	\frametitle{Objetivos Específicos}
+	\begin{itemize}
+		\item O jogo terá três fases, sendo a primeira uma fase fácil para o jogador se acustumar
+com os comandos e o objetivo do jogo, não tendo inimigos para atrapalhar e um mapa 
+pequeno.
+		\pause
+		\item A segunda fase já terá um mapa maior e alguns inimigos para atrapalhar e plataformas que se movem verticalmente.
+		\pause
+		\item A terceira e última fase terá mais inimigos, mais estrelas para serem coletadas em vários lugares e plataformas se movendo horizontalmente e verticalmente. 
+		\pause
+		\item O jogo será exportado para um arquivo executável.
+
+	\end{itemize}
+
+}
+
+\section{Metodologia}
+\subsection{Sprites}
+\frame
+{
+	\frametitle{Sprites}
+	\begin{itemize}
+		\item Em computação gráfica, um sprite (do latim spiritus, significando "duende", "fada") é um objeto gráfico bi ou tridimensional que se move numa tela sem deixar traços de sua passagem (como se fosse um "espírito").
+		\pause
+		\item Os sprites foram inventados originalmente como um método rápido de animação de várias imagens agrupadas numa tela, em jogos de computador bidimensionais, usando hardware especial.
+		\pause
+		\item A medida que a performance dos computadores melhorou, esta otimização tornou-se desnecessária e o termo evoluiu para referir-se especificamente às imagens bidimensionais que eram integradas numa determinada cena, isto é, figuras geradas por hardware ou software eram todas referenciadas como sprites.
+	\end{itemize}
+}
+\frame
+{
+	\frametitle{Sprites}
+	\begin{itemize}
+		\item No jogo desenvolvido, para os vários movimentos do personagem principal e movimentos dos inimigos, foi utilizada uma folha de sprites(sprite sheet).
+		\pause
+		\item Essa folha de sprites, contem as várias sprites que podem ser utilizadas. Cada sprite tem exatamente as mesmas dimensões uma da outra, sendo divididas por retângulos.
+	\end{itemize}
+	\begin{figure}[h]
+  		\centering
+   		\includegraphics[width=0.1\textwidth]{figuras/player.png}
+			\caption{Folha de sprites do player}
+			\label{1}
+	\end{figure}
+	\begin{figure}[h]
+  		\centering
+   		\includegraphics[width=0.1\textwidth]{figuras/baddie_cat.png}
+			\caption{Folha de sprites do inimigo}
+			\label{1}
+	\end{figure}
+}
+
+\frame
+{
+	\frametitle{Sistema de Controle de Sprites}
+	\begin{itemize}
+		\item Existem vários plugins para o Unity que fazem o controle de troca de sprites durante o jogo. Em sua maioria cobram pela utilização.
+		\pause
+		\item Foi implementado um sistema próprio de controle de sprites. Esse sistema foi dividido em várias classes.
+	\end{itemize}
+}
+
+\frame
+{
+	\frametitle{Sistema de Controle de Sprites}
+	\begin{itemize}
+		\item SpriteRect: Classe que representa cada retângulo de uma folha de sprites. Essa classe possui as informações sobre as dimensões de cada retângulo dentro da folha de sprites.
+		\pause
+		\item SpriteSheetInfo: Classe que guarda informações como nome da sprite, textura a ser utilizada, entre outras informações.
+		\pause
+		\item Sprite: Classe responsável pela mudança de uma sprite para outra. Essa classe que controla o tempo que cada sprite deve aparecer ou ser trocada.
+	\end{itemize}
+}
+\frame
+{
+	\frametitle{Sistema de Controle de Sprites}
+	\begin{itemize}
+		\item SpriteSet: Classe responsável por chamar o carregamento das sprites. Essa classe é chamada antes de iniciar o jogo e já carrega todas as sprites do jogo.
+		\pause
+		\item XMLParser: Classe que realmente interpreta e carrega as sprites. Todas as informações de sprites são guardadas em um arquivo XML chamado SpriteData.xml. Essa classe de parser, interpreta o xml e todas as informações contidas nele e carrega os sprites passados pelo mesmo.
+	\end{itemize}
+}
+\subsection{Movimentação}
+\frame
+{
+	\frametitle{Movimentação}
+	\begin{itemize}
+		\item O personagem pode se movimentar para direita, para a esquerda e pular para qualquer um dos lados.
+		\pause
+		\item A cada comando desses, foi necessário implementar uma lógica para, além de mudar as sprites, fazer o jogador realmente se mover. 
+		\pause
+		\item Foi utilizado um módulo oferecida pelo próprio Unity, chamado \textbf{\textcolor{Blue}{Character Controller}}. Esse controller, te dá várias funcionalidades para controle de movimento e colisões, principalmente em um cenário 2D.
+	\end{itemize}
+}
+\subsection{Câmera}
+\frame
+{
+	\frametitle{Câmera}
+	\begin{itemize}
+		\item A câmera deve sempre seguir o personagem durante seu movimento pelo cenário.
+		\pause
+		\item Existe um jeito bastante simples de fazer isso que o Unity proporciona. Apenas botando o objeto da câmera principal como um objeto filho do personagem, a câmera iria seguir o movimento do personagem. 
+		\pause
+		\item Esse método acarreta em alguns problemas como o caso que a câmera acabaria mostrando a parte que não existe do cenário.
+		\pause
+		\item Para resolver esse problema, foi feito um controle simples pelo código que faz com que a câmera acompanhe o personagem até o limite especificado para cada fase.
+	\end{itemize}
+}
+\subsection{Cenário}
+\frame
+{
+	\frametitle{Cenário}
+	\begin{itemize}
+		\item Na maioria dos jogos, os cenários são criados por outras ferramentas especializadas e importadas para o unity. No caso desse projeto, nenhuma ferramenta especializada foi utilizada.
+		\pause
+		\item A partir de uma página de sprites com várias partes possíveis do cenário, foram criados sprites específicos. Com esses sprites específicos, foi utilizado de outra ferramenta do unity, chamado prefab.
+		\pause
+		\item Um prefab é apenas um modelo de objeto que pode ser instanciado ou destruído em qualquer momento do jogo. Tendo esse modelo, ao iniciar o jogo, é montado o cenário inteiro a partir desses prefabs.
+		\pause
+		\item Utilizar um prefab é um jeito bem fácil e prático para instanciar objetos que se repetem várias vezes no cenário durante o jogo. Todos eles possuem sempre as mesmas propriedades básicas.
+	\end{itemize}
+}
+\subsection{Inimigos}
+\frame
+{
+	\frametitle{Inimigos}
+	\begin{itemize}
+		\item Para a criação dos inimigos, foi utilizado do mesmo sistema de controle de sprites utilizado no controle do personagem principal.
+		\pause
+		\item A diferença é que foi criada uma lógica diferente para a movimentação. Cada inimigo já tem uma rota certa no mapa com um limite máximo a ser percorrido, podendo começar a rota para esquerda ou para a direita, dependendo da configuração.
+		\pause
+		\item Do mesmo jeito que o cenário, a criação dos  inimigos é feita por prefabs.
+		\pause
+		\item Foi implementada uma lógica que ao ser detectada uma colisão entre um objeto instanciado de um inimigo e o personagem principal, o jogo considera como derrota e a fase reinicia.
+	\end{itemize}
+}
+\subsection{Som de Fundo}
+\frame
+{
+	\frametitle{Som de Fundo}
+	\begin{itemize}
+		\item Para o som de fundo, a unity nos proporciona uma funcionalidade chamada de Audio Source, a qual você pode escolher um som e mudar algumas configurações do mesmo. 
+		\pause
+		\item Ao criar essa funcionalidade em um objeto vazio, o objeto foi incluido como um objeto filho do personagem principal, desse modo o som iria sempre estar ativo não importando se o player se movesse.
+	\end{itemize}
+}
+\subsection{Pontuação}
+\frame
+{
+	\frametitle{Pontuação}
+	\begin{itemize}
+		\item Durante a criação do cenário, também são criados vários objetos, utilizando do prefab, que são estrelas a ser capturadas pelo personagem.
+		\pause
+		\item Para pontuação do jogo, foi implementado uma lógica na qual a cada colisão do personagem com um objeto estrela, a pontuação aumenta.
+		\pause
+		\item Caso a quantidade de estrelas capturadas fosse o mesmo da quantidade de estrelas totais criadas no cenário, significa que o jogador passou da fase.
+	\end{itemize}
+}
+\subsection{Pause}
+\frame
+{
+	\frametitle{Pause}
+	\begin{itemize}
+		\item Foi criada uma lógica para toda vez que o jogador apertar a tecla ESC, todos os objetos do jogo são congelados e nenhum comando pode ser executado até a próxima vez que o jogador apertar novamente a tecla ESC e o jogo voltaria a rodar de onde parou.
+	\end{itemize}
+}
+\subsection{Tela inicial e final}
+\frame
+{
+	\frametitle{Tela inicial e final}
+	\begin{itemize}
+		\item Ao começar o jogo, foi criada uma tela contendo o nome do jogo e informações para iniciar o mesmo. Ao apertar a tecla enter, essa tela some e o jogo inicia realmente.
+		\pause
+		\item Caso o jogador vença a terceira e última fase, uma tela que informa a vitória do jogador aparece. Nessa última tela a única opção do jogador é apertar a tecla enter e sair do jogo. 
+	\end{itemize}
+}
+\subsection{Exportação do jogo}
+\frame
+{
+	\frametitle{Exportação do jogo}
+	\begin{itemize}
+		\item O Unity proporciona um jeito fácil para exportar o jogo para várias plataformas. No caso desse jogo, foi realizada apenas a exportação para um arquivo executável(.exe) para PC.
+	\end{itemize}
+}
+\section{Conclusões}
+\frame
+{
+	\frametitle{Conclusões}
+	\begin{itemize}
+		\item Unity é uma ferramenta muito poderosa para criação de jogos, porém na versão utilizada, o foco era a criação de jogos 3D.
+		\pause
+		\item Um designer na equipe pode poupar muito tempo do desenvolvedor. A utilização de ferramentas especializadas na criação de cenários e assets é algo que facilita bastante.
+		\pause
+		\item Outras engines para desenvolvimento de jogos podem ser mais efetivas para a criação de um jogo como o proposto pelo projeto, porém não possuem a quantidade de opções e ferramentas que o Unity proporciona.
+		\pause
+		\item A curva de aprendizagem pode ser um pouco elevada para quem nunca criou um jogo, porém após um tempo de estudo, o Unity se torna uma ferramenta muito poderosa.
+	\end{itemize}
+}
+\section{Referências}
+\frame
+{
+	\frametitle{Referências}
+	\begin{thebibliography}{9}
+	\bibitem{beamer} [1] Carlos de Lannoy. Disponível em http://g1.globo.com/jornal-daglobo/
+noticia/2013/05/brasil-lidera-crescimento-do-mercado-de-jogos-eletronicosem-
+2012.html . Acessado em: 24/09/2013.
+	\bibitem{beamer} [2] Unity. Disponível em http://portuguese.unity3d.com/gallery/made-withunity/
+game-list . Acessado em: 25/09/2013.
+	\end{thebibliography}
+	
+}
+
+%\frame
+%{
+%	\frametitle{Submissões}
+%		Este durante este trabalho foi gerado um artigo de mesmo título que foi %submetido pra o evento SBAI 2013.
+%}
+
+
+\end{document}
+
